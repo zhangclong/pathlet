@@ -1,0 +1,46 @@
+
+1. Complete the json configuration properties weave 
+   supports: "Map, list, set" class properties weave. 
+   -- completed at 2013-02-08
+
+
+2. Add annotation method wired 
+   Reference examples:
+   org.springframework.context.annotation.CommonAnnotationBeanPostProcessor
+   org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor
+   -- completed at 2013-02-08
+
+3. Complete following configurations:
+   Core configurations: creaters, pointcuts, advices,  modules
+   completed at 2013-02-16
+   
+4. Complete the basic EShop initializing config module.
+   Completed at 2013-02-23
+ 
+5. Complete the dynamic module reload function page.
+   Completed at 2013-02-23
+
+6. Refact the mechanism of InstanceSpace bind object.(For instance: HttpServletRequest bind in request InstanceSpace, ServletContext bind in container InstanceSpace)
+   New way: Bind the object in special path of InstanceSpace. 
+      For example:  HttpServletRequest bind in "/request" path at request lifecycle scope.
+                    "/request/attibuteName" could directory access the request attribute by name.
+                    HttpSession bind in "/session" path at "request" lifecycle scope.
+					ServletContext bind in "/application" path at "container" lifecycle scope.
+   Plan in 2013-07-20
+   
+   和JSP EL表达式类似：
+   "/request"
+   "/request/attibuteName"
+   "/param/paramName"
+   "/paramValues/paramName" 返回数组值
+   "/session"
+   "/session/attibuteName"
+   
+8. JNDI support mapping the JNDI path into the pathlet path.
+
+7. An embryonic idea, setting beans could be placed into a special InstanceSpace which named "setting".
+
+8. Write a chinese tutorial book for the first release.
+   Plan in 2013-09-15
+
+   

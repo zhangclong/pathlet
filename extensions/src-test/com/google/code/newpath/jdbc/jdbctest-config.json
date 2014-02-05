@@ -1,0 +1,62 @@
+{
+
+placeholders: [
+	'datasource.properties'
+],
+
+beans: 
+[
+	{
+		path : '/dataSource',
+		class : '${datasource.class}',
+		scope : 'application',
+		initMethod: 'init',
+		destoryMethod: 'close',
+		properties: {
+			jdbcUrl : '${datasource.jdbcUrl}',
+			user : '${datasource.username}',
+			password : '${datasource.password}',
+			initialPoolSize : 3,
+			minPoolSize : 3,
+			maxPoolSize : 20,
+			acquireRetryAttempts : 3,
+			idleConnectionTestPeriod : 60,
+			acquireIncrement : 2,
+			maxStatements : 0
+		}
+	},
+	
+	{
+		path : '/transactionManager',
+		class :'org.springframework.jdbc.datasource.DataSourceTransactionManager', 
+		scope : 'application',
+		properties: {
+			dataSource.ref          : '/dataSource'
+		}
+	}
+]
+
+pointcuts: [
+	{
+		id: 'dbConfigPointCut',
+		includePaths: '/**/*',
+		excludePaths: '',
+		methods: 'save*,update*,insert*,delete*'
+	},
+	{
+		id: 'loggingPointCut',
+		includePaths: '/**/*',
+		excludePaths: '',
+		methods: 'save*,update*,insert*,delete*'
+	}
+]
+
+advices: [
+	{
+		pointcutId: 'dbConfigPointCut',
+		advicePath: '/full/path/of/adviceClass',
+		adviceMethod: 'adviceMethodName'
+	}
+]
+
+}

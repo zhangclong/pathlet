@@ -1,0 +1,165 @@
+{
+beans: 
+[
+	{
+		path: "/servicePathConverter",
+		scope: "setting",
+		class:"com.google.code.pathlet.core.impl.ClassNamePathConverter",
+		properties: { appendPackage: "impl", namePrefix: "", nameSuffix: "Impl"}
+	},
+	
+	{
+		path : "/factories/commonBeanFactory",
+		scope: "setting",
+		class :"com.google.code.pathlet.core.impl.BeanResourceFactory",
+		properties: {
+			defaultScope: "container",
+			startPath: "/",
+			basePackage: "com.wanda.ccs.jobhub",
+			pathPattern: {includes: "/*"}
+		}
+	},
+	
+	{
+		path : "/factories/serviceBeanFactory",
+		scope: "setting",
+		class : "com.google.code.pathlet.core.impl.BeanResourceFactory", 
+		properties: {
+			defaultScope: "container",
+			startPath: "/",
+			basePackage: "com.google.code.pathlet.jdbc.instance",
+			pathPattern: {includes: "/**/*Service"},
+			pathConverter: "$instance:/servicePathConverter"
+		}
+	},
+
+
+	{
+		path  : "/dataSource",
+		class : "com.mchange.v2.c3p0.ComboPooledDataSource",
+		scope : "container",
+		//destroyMethod : "close",
+		properties: {
+			driverClass               : "org.h2.Driver",
+			jdbcUrl                   : "jdbc:h2:mem:test",
+			user                      : "sa",
+			password                  : "sa",
+			initialPoolSize           : 3,
+			minPoolSize               : 3,
+			maxPoolSize               : 20,
+			acquireRetryAttempts      : 3,
+			idleConnectionTestPeriod  : 60,
+			acquireIncrement          : 2,
+			maxStatements             : 0
+		}
+	},
+	
+	{
+		path  : "/dataSource2",
+		class : "com.mchange.v2.c3p0.ComboPooledDataSource",
+		scope : "container",
+		//destroyMethod : "close",
+		properties: {
+			driverClass               : "org.h2.Driver",
+			jdbcUrl                   : "jdbc:h2:mem:test2",
+			user                      : "sa",
+			password                  : "sa",
+			initialPoolSize           : 3,
+			minPoolSize               : 3,
+			maxPoolSize               : 20,
+			acquireRetryAttempts      : 3,
+			idleConnectionTestPeriod  : 60,
+			acquireIncrement          : 2,
+			maxStatements             : 0
+		}
+	},
+
+	{
+		path : "/transactionManager",
+		class :"org.springframework.jdbc.datasource.DataSourceTransactionManager", 
+		scope : "container",
+		properties: {
+			dataSource: "$instance:/dataSource"
+		}
+	},
+	
+	{
+		path : "/transactionManager2",
+		class :"org.springframework.jdbc.datasource.DataSourceTransactionManager", 
+		scope : "container",
+		properties: {
+			dataSource: "$instance:/dataSource2"
+		}
+	},
+	
+	{
+		path : "/readonlyInterceptor",
+		class :"com.google.code.pathlet.jdbc.ConfTransactionInterceptor", 
+		scope : "container",
+		properties: {
+			transactionManager: "$instance:/transactionManager",
+			readOnly: true
+		}
+	},
+	
+	{
+		path : "/writableInterceptor",
+		class :"com.google.code.pathlet.jdbc.ConfTransactionInterceptor", 
+		scope : "container",
+		properties: {
+			transactionManager: "$instance:/transactionManager",
+			rollbackFor: ["java.sql.SQLException", "java.io.IOException"],
+			readOnly: false
+		}
+	},
+	
+	{
+		path : "/annoInterceptor",
+		class :"com.google.code.pathlet.jdbc.AnnoTransactionInterceptor",
+		scope : "container",
+		properties: {
+			transactionManager: "$instance:/transactionManager"
+		}
+	}
+	
+],
+
+pointcuts: [
+	{
+		id: "readonlyPointcut",
+		pathPattern: {includes: "/**/Conf*Service"},
+		methods: "get*,query*,find*,is*,has*"
+	},
+	
+	{
+		id: "writablePointcut",
+		pathPattern: {includes: "/**/Conf*Service"},
+		methods: "add*,set*,put*,save*,update*,insert*,delete*"
+	},
+	
+	{
+		id: "annoPointcut",
+		pathPattern: {includes: "/**/Anno*Service"},
+		methods: "*"
+	}
+],
+
+advices: [
+	{
+		id: "transactionQuartzReadonly",
+		advisorPath: "/readonlyInterceptor",
+		pointcutId: "readonlyPointcut",
+		adviceMethod: "around"
+	},
+	
+	{
+		id: "transactionQuartzWritable",
+		advisorPath: "/writableInterceptor",
+		pointcutId: "writablePointcut",
+		adviceMethod: "around"
+	}
+	
+]
+
+
+}

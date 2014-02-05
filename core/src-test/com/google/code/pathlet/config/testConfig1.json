@@ -1,0 +1,113 @@
+{
+
+modules: 
+[
+	{
+		id: 'config',
+		class: 'com.google.code.pathlet.core.impl.ClassPathModule',
+		classPaths: ['${classes.basedir}../'],
+		resourcePattern: {includes: '/config/**/*'},
+		autoReload: true
+	}
+],
+
+/* define all pathlet beans here */
+beans: 
+[
+	{
+		path : "/servicePathConverter",
+		scope: "setting",
+		class :"com.google.code.pathlet.core.impl.ClassNamePathConverter", 
+		properties: { appendPackage: "impl", namePrefix: null, nameSuffix: "Impl" }
+	},
+	
+	{
+		path : "/factories/beanCreator",
+		scope: "setting",
+		class :"com.google.code.pathlet.core.impl.BeanResourceFactory", 
+		properties: {
+			defaultScope: "container",
+			startPath: "/",
+			basePackage: "com.google.code.pathlet.exampleservice",
+			pathPattern: {includes: "/**/*", excludes: "/interceptor/**/*"},
+			pathConverter: "$instance:/servicePathConverter"
+		}
+	},
+
+	{
+		path : "/factories/interceptorCreator",
+		scope: "setting",
+		class :"com.google.code.pathlet.core.impl.BeanResourceFactory", 
+		properties: {
+			defaultScope: "container",
+			startPath: "/",
+			basePackage: "com.google.code.pathlet.exampleservice",
+			pathPattern: {includes: "/interceptor/**/*"}
+		}
+	},
+
+
+	{
+		path  : "/TestWeaveBean",
+		class : "${testWeaveBeanName}",
+		scope : "container",
+		initMethod : "init",
+		destroyMethod : "close",
+		properties: {
+			stringProp            : "${appBeanName:applicationBean}",
+			booleanProp           : true,
+			intProp               : 9,
+			longProp              : 999999,
+			floatProp             : 9.99,
+			doubleProp            : 9.9999,
+			refBean               : "$instance:/user/UserService",
+			containerSpace        : "$space:container",
+			listProp              : ["3", "4", "5"],
+			setProp               : ["6", "7", "8"],
+			mapProp               : {"a":"1", "b":"2", "c":"3"},
+			refList               : ["$instance:/user/UserService", "$instance:/menu/CategoryService"],
+			refMap                : {"userService":"$instance:/user/UserService", "categoryService":"$instance:/menu/CategoryService"},
+			matchPattern          : {includes:"pattern1,pattern2,pattern3", excludes:"pattern4,pattern5"},
+			matchPatternIncludes  : {includes:"pattern11"},
+			path                  : "/user/UserService",
+			container             : "$container"
+		}
+	},
+	
+	/* For testing the default scope and none properties setting.*/
+	{
+		path  : "/TestWeaveBean2",
+		class : "${testWeaveBeanName}"
+	}
+	
+	
+],
+
+
+pointcuts: [
+	{
+		id: "pointCutUserService",
+		pathPattern: {includes: "/**/UserService"},
+		methods: "getUser"
+	}
+	
+
+],
+
+advices: [
+	{
+		id: "outerConfigInterceptor",
+		advisorPath: "/interceptor/ConfigInterceptor",
+		pointcutId: "pointCutUserService",
+		adviceMethod: "aroundOuter"
+	}
+],
+
+aliases: [
+	{to:"/bean2", from:"/TestWeaveBean2"},
+	{to:"/bean", from:"/TestWeaveBean"}
+]
+
+
+
+}

@@ -1,0 +1,12 @@
+PATHLET FRAMEWORK CHANGELOG
+==========================
+http://code.google.com/p/pathlet/
+
+
+Changes in version 1.3.1 (2013-09-)
+-------------------------------------
+* Rename the ResourceCreater into new name ResourceFactory
+* Remove getSuffix() in ResouceFactory interface; Delete the suffix '.pb' from the configuration files.
+
+
+

@@ -1,0 +1,58 @@
+{
+
+modules: 
+[
+	{
+		id: 'party',
+		class: 'com.google.code.pathlet.core.impl.ClassPathModule',
+		classPaths: ['${classes.basedir}../'],
+		resourcePattern: {includes: '/party/**/*'}
+	}
+],
+
+/* define all pathlet beans here */
+beans: 
+[
+	
+	{
+		path  : "/TestWeaveRequestBean",
+		class : "com.google.code.pathlet.config.TestWeaveBean",
+		scope : "request",
+		initMethod : "init",
+		destroyMethod : "close",
+		properties: {
+			stringProp            : "${reqBeanName:null}",
+			booleanProp           : false,
+			intProp               : 9,
+			longProp              : 999999,
+			floatProp             : 9.99,
+			doubleProp            : 9.9999,
+			refBean               : "$instance:/user/UserService",
+			containerSpace        : "$space:container",
+			requestSpace          : "$space:request"
+		}
+	}
+	
+],
+
+
+pointcuts: [
+	{
+		id: "pointCutCategoryService",
+		scopes: "container,request",
+		pathPattern: {includes: "/**/CategoryService,/**/MenuItemService", excludes: "/**/UserService"},
+		methods: "save*,update*,insert*,delete*"
+	}
+],
+
+advices: [
+	{
+		id: "innerConfigInterceptor",
+		advisorPath: "/interceptor/ConfigInterceptor",
+		pointcutId: "pointCutUserService",
+		adviceMethod: "aroundInner"
+	}
+]
+
+
+}
