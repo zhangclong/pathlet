@@ -1,21 +1,19 @@
 package com.google.code.pathlet.jdbc;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.NoRollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionAttribute;
+import org.springframework.transaction.interceptor.TransactionAttributeSource;
 
-import com.google.code.pathlet.core.ProceedingJoinPoint;
-
-public class ConfTransactionInterceptor {
+public class ConfTransactionInterceptor extends BaseTransactionInterceptor {
 	
-	private PlatformTransactionManager transactionManager;
+	private static final long serialVersionUID = 380535429510069680L;
 	
 	private int propagationBehavior;
 	
@@ -30,10 +28,6 @@ public class ConfTransactionInterceptor {
 	private int isolationLevel = TransactionDefinition.ISOLATION_DEFAULT;
 	
 	private TransactionAttribute txAttribute = null; //Cache after the first parse the properties in this class.
-	
-	public void setTransactionManager(PlatformTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
-	}
 	
 	public void setPropagationBehavior(int propagationBehavior) {
 		this.propagationBehavior = propagationBehavior;
@@ -58,27 +52,10 @@ public class ConfTransactionInterceptor {
 	public void setIsolationLevel(int isolationLevel) {
 		this.isolationLevel = isolationLevel;
 	}
-	
-	public Object around(ProceedingJoinPoint aj) throws Throwable {
-		TransactionAttribute txAttr = getTxAttribute();
-		TransactionStatus status = transactionManager.getTransaction(txAttr);
-		boolean rollbacked = false;
-		try {
-			return aj.proceed();
-		}
-		catch (Exception ex) {
-			transactionManager.rollback(status);
-			rollbacked = true;
-			throw ex;
-		}
-		finally {
-			if(rollbacked == false) {
-				transactionManager.commit(status);
-			}
-		}
-	}
-	
-	private TransactionAttribute getTxAttribute() {
+
+	@Override
+	public TransactionAttribute getTransactionAttribute(Method method,
+			Class<?> targetClass) {
 		if(this.txAttribute == null) {
 			RuleBasedTransactionAttribute rbta = new RuleBasedTransactionAttribute();
 			rbta.setPropagationBehavior(this.propagationBehavior);
@@ -104,7 +81,6 @@ public class ConfTransactionInterceptor {
 		else {
 			return this.txAttribute;
 		}
-
 	}
 	
 	

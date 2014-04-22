@@ -1,15 +1,10 @@
 package com.google.code.pathlet.jdbc;
 
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
+import java.lang.reflect.Method;
+
 import org.springframework.transaction.annotation.AnnotationTransactionAttributeSource;
 import org.springframework.transaction.interceptor.TransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionAttributeSource;
-
-import com.google.code.pathlet.config.anno.ContainerIn;
-import com.google.code.pathlet.core.PathletContainer;
-import com.google.code.pathlet.core.ProceedingJoinPoint;
-import com.google.code.pathlet.util.ValueUtils;
 
 /**
  * Pathlet AOP interceptor for declarative transaction
@@ -23,68 +18,22 @@ import com.google.code.pathlet.util.ValueUtils;
  * @author Charlie Zhang
  * @see com.google.code.pathlet.jdbc.ConfTransactionInterceptor
  */
-public class AnnoTransactionInterceptor {
-	
-	@ContainerIn
-	private PathletContainer container;
+public class AnnoTransactionInterceptor extends BaseTransactionInterceptor {
 
-	private PlatformTransactionManager transactionManager;
+	private static final long serialVersionUID = 3543959677450028383L;
 	
-	private TransactionAttributeSource annoAttributeSource = new AnnotationTransactionAttributeSource();;
+	private TransactionAttributeSource attributeSource = new AnnotationTransactionAttributeSource();
 	
-	public void setTransactionManager(PlatformTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
+	@Override
+	public TransactionAttributeSource getTransactionAttributeSource() {
+		return this.attributeSource;
 	}
 	
-	/**
-	 * get the PlatformTransactionManager instance.
-	 * If the qualifier attribute has been defined in the TransactionAttribute, 
-	 * the PlatformTransactionManager instance will be got from the container by the path specified in the qualifier.
-	 * If the qualifier is empty, the default  this.transactionManager will be used. 
-	 * 
-	 * @param txAttr
-	 * @return
-	 */
-	private PlatformTransactionManager retrieveTxManager(TransactionAttribute txAttr) {
-		if(txAttr != null && ValueUtils.notEmpty(txAttr.getQualifier())) {
-			String txManagerPath = txAttr.getQualifier();
-			return (PlatformTransactionManager)this.container.getInstance(txManagerPath);
-		}
-		else {
-			return this.transactionManager;
-		}
+	@Override
+	public TransactionAttribute getTransactionAttribute(Method method,
+			Class<?> targetClass) {
+		
+		return getTransactionAttributeSource().getTransactionAttribute(method, targetClass);
 	}
 	
-	
-	
-	public Object around(ProceedingJoinPoint aj) throws Throwable {
-		boolean rollbacked = false;
-		TransactionAttribute txAttr = this.annoAttributeSource.getTransactionAttribute(aj.getMethod(), aj.getTarget().getClass());
-		if(txAttr != null) {
-			//if the @Trasactional has not been found, wrap the method process by transactionManager.
-			
-			TransactionStatus status = transactionManager.getTransaction(txAttr);
-			PlatformTransactionManager txManager = retrieveTxManager(txAttr);
-			try {
-				return aj.proceed();
-			}
-			catch (Throwable ex) {
-				if (txAttr.rollbackOn(ex)) {
-					txManager.rollback(status);
-					rollbacked = true;
-				}
-	
-				throw ex;
-			}finally {
-				if(rollbacked == false) {
-					txManager.commit(status);
-				}
-			}
-		}
-		else {
-			//if the @Trasactional has not been found in class on method, process directly
-			return aj.proceed();
-		}
-	}
-
 }
