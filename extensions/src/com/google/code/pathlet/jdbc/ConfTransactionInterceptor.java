@@ -9,8 +9,16 @@ import org.springframework.transaction.interceptor.NoRollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionAttribute;
-import org.springframework.transaction.interceptor.TransactionAttributeSource;
 
+/**
+ * Pathlet AOP interceptor for declarative transaction
+ * management using the common Spring transaction infrastructure.
+ * ({@link org.springframework.transaction.PlatformTransactionManager}).
+ * Supporting the Pathlet property configuration to control the transaction options.
+ * 
+ * @author Charlie Zhang
+ *
+ */
 public class ConfTransactionInterceptor extends BaseTransactionInterceptor {
 	
 	private static final long serialVersionUID = 380535429510069680L;

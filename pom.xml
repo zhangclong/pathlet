@@ -8,8 +8,8 @@
 	<version>2.0-SNAPSHOT</version>
 	<description>Pathlet Framework - Parent</description>
 	<modules>
-		<module>pathlet-core</module>
-		<module>pathlet-extensions</module>
+		<module>core</module>
+		<module>extensions</module>
 		<!-- <module>pathlet-apps</module> -->
 	</modules>
 	<licenses>
@@ -200,11 +200,6 @@
 				<artifactId>servlet-api</artifactId>
 				<version>2.5</version>
 				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.xeustechnologies</groupId>
-				<artifactId>jcl-core</artifactId>
-				<version>2.4</version>
 			</dependency>
 			<dependency>
 				<groupId>c3p0</groupId>

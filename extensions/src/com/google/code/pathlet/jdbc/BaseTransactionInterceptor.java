@@ -14,6 +14,17 @@ import com.google.code.pathlet.core.PathletContainer;
 import com.google.code.pathlet.core.ProceedingJoinPoint;
 import com.google.code.pathlet.util.ValueUtils;
 
+/**
+ * 
+ * extends the {@link org.springframework.transaction.interceptor.TransactionInterceptor} class, 
+ * To use some protected the spring TransactionInterceptor method into Pathlet. 
+ * 
+ * @author Charlie Zhang
+ * @see com.google.code.pathlet.jdbc.AnnoTransactionInterceptor
+ * @see com.google.code.pathlet.jdbc.ConfTransactionInterceptor
+ * 
+ *
+ */
 public abstract class BaseTransactionInterceptor extends TransactionInterceptor {
 
 	private static final long serialVersionUID = -3476266809913371712L;

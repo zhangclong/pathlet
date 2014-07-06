@@ -10,12 +10,13 @@ import org.springframework.transaction.interceptor.TransactionAttributeSource;
  * Pathlet AOP interceptor for declarative transaction
  * management using the common Spring transaction infrastructure.
  * ({@link org.springframework.transaction.PlatformTransactionManager}).
- * Supporting the {@link org.springframework.transaction.annotation.Transactional} using in the class.
+ * Supporting the annotation {@link org.springframework.transaction.annotation.Transactional} using.
  * <p>The default transaction manager is set by property "transactionManager" in this class. 
  * The <code>value</code> of <code>@Transactional</code> is the path of the transaction manager. For instance:<br/>
  *  <code>@Transactional(value="/myTransactionManager")</code> the instance of the path "/myTransactionManager" will be used.
  *
  * @author Charlie Zhang
+ * @see com.google.code.pathlet.jdbc.BaseTransactionInterceptor
  * @see com.google.code.pathlet.jdbc.ConfTransactionInterceptor
  */
 public class AnnoTransactionInterceptor extends BaseTransactionInterceptor {

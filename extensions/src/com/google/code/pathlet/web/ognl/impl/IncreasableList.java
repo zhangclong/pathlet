@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+
 import com.google.code.pathlet.web.ognl.ConvertException;
 
 
@@ -37,6 +38,7 @@ import com.google.code.pathlet.web.ognl.ConvertException;
  *
  * @author Charlie Zhang
  */
+@SuppressWarnings({ "rawtypes", "serial" })
 public class IncreasableList extends ArrayList { 
     
 	private static final Log log = LogFactory.getLog(IncreasableList.class);
