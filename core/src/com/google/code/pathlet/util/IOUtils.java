@@ -46,10 +46,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.google.code.pathlet.util.impl.ByteArrayOutputStream;
-import com.google.code.pathlet.util.impl.Charsets;
-import com.google.code.pathlet.util.impl.StringBuilderWriter;
-
 
 /**
  * General IO stream manipulation utilities.
@@ -82,7 +78,6 @@ import com.google.code.pathlet.util.impl.StringBuilderWriter;
  * <p>
  * Origin of code: Excalibur.
  *
- * @version $Id: IOUtils.java 1326636 2012-04-16 14:54:53Z ggregory $
  */
 public class IOUtils {
     // NOTE: This class is focussed on InputStream, OutputStream, Reader and

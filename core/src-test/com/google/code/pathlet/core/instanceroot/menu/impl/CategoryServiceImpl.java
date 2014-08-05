@@ -1,10 +1,10 @@
-package com.google.code.pathlet.exampleservice.menu.impl;
+package com.google.code.pathlet.core.instanceroot.menu.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.code.pathlet.exampleservice.menu.Category;
-import com.google.code.pathlet.exampleservice.menu.CategoryService;
+import com.google.code.pathlet.core.instanceroot.menu.Category;
+import com.google.code.pathlet.core.instanceroot.menu.CategoryService;
 
 public class CategoryServiceImpl implements CategoryService {
 	

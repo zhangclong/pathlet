@@ -1,13 +1,6 @@
 package com.google.code.pathlet.config.convert;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.lang.reflect.WildcardType;
+import java.lang.reflect.*;
 import java.util.Collection;
 import java.util.Map;
 
@@ -18,7 +11,6 @@ import java.util.Map;
  * target type of values to be added to a collection or map
  * (to be able to attempt type conversion if appropriate).
  *
- * @author Juergen Hoeller
  * @since 2.0
  */
 public abstract class GenericCollectionTypeResolver {

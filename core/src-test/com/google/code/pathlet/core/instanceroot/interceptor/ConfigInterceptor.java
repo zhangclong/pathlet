@@ -1,9 +1,7 @@
-package com.google.code.pathlet.exampleservice.interceptor;
+package com.google.code.pathlet.core.instanceroot.interceptor;
 
-import com.google.code.pathlet.config.anno.Advisor;
-import com.google.code.pathlet.config.anno.Pointcut;
 import com.google.code.pathlet.core.ProceedingJoinPoint;
-import com.google.code.pathlet.exampleservice.user.User;
+import com.google.code.pathlet.core.instanceroot.user.User;
 
 
 /**

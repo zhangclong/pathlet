@@ -4,7 +4,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;  
 import java.lang.reflect.Type;  
 import java.util.Map;  
-  
+
+
+/**
+ * Not a actually test case, just a practice for java Generic API.
+ * @author Charlie Zhang
+ *
+ */
 public class GenericTypeTest<E> {  
   
     private int primitive_type;  

@@ -1,4 +1,4 @@
-package com.google.code.pathlet.test;
+package com.google.code.pathlet.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import com.google.code.pathlet.core.impl.DefaultPathletContainer;
  * @author Charlie Zhang
  * @since 2013-04-08
  */
-public class ContainerTestHelper {
+public class StaticContainerHelper {
 	
 	private final static Map<String, PathletContainer> containerCache;
 	

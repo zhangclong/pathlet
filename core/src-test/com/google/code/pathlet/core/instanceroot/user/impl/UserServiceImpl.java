@@ -1,10 +1,10 @@
-package com.google.code.pathlet.exampleservice.user.impl;
+package com.google.code.pathlet.core.instanceroot.user.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.code.pathlet.exampleservice.user.User;
-import com.google.code.pathlet.exampleservice.user.UserService;
+import com.google.code.pathlet.core.instanceroot.user.User;
+import com.google.code.pathlet.core.instanceroot.user.UserService;
 
 public class UserServiceImpl implements UserService {
 	

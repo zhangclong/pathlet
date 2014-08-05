@@ -1,4 +1,4 @@
-package com.google.code.pathlet.exampleservice.user;
+package com.google.code.pathlet.core.instanceroot.user;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.google.code.pathlet.util.impl;
+package com.google.code.pathlet.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

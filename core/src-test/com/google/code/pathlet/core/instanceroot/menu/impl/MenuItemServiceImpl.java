@@ -1,7 +1,7 @@
-package com.google.code.pathlet.exampleservice.menu.impl;
+package com.google.code.pathlet.core.instanceroot.menu.impl;
 
-import com.google.code.pathlet.exampleservice.menu.MenuItem;
-import com.google.code.pathlet.exampleservice.menu.MenuItemService;
+import com.google.code.pathlet.core.instanceroot.menu.MenuItem;
+import com.google.code.pathlet.core.instanceroot.menu.MenuItemService;
 
 public class MenuItemServiceImpl implements MenuItemService {
 	

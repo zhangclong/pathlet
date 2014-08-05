@@ -1,7 +1,6 @@
 package com.google.code.pathlet.config.convert;
 
 import com.google.code.pathlet.config.ConfigException;
-import com.google.code.pathlet.core.exception.SysRuntimeException;
 
 /**
  * 

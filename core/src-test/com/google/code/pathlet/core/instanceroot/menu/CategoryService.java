@@ -1,4 +1,4 @@
-package com.google.code.pathlet.exampleservice.menu;
+package com.google.code.pathlet.core.instanceroot.menu;
 
 
 

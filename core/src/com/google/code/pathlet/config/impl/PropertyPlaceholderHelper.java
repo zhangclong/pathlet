@@ -45,8 +45,6 @@ public class PropertyPlaceholderHelper {
 	/** Default ignore unsolvable replace holder or not */
 	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE_PALCEHOLDER = false;
 
-	//private static final Log logger = LogFactory.getLog(PropertyPlaceholderHelper.class);
-
 	private static final Map<String, String> wellKnownSimplePrefixes = new HashMap<String, String>(4);
 
 	static {

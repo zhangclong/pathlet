@@ -1,41 +1,20 @@
-package com.google.code.pathlet;
+package com.google.code.pathlet.core;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.google.code.pathlet.config.ConfigManager;
-import com.google.code.pathlet.config.TestWeaveBean;
-import com.google.code.pathlet.config.impl.JsonConfigManager;
-import com.google.code.pathlet.core.ConfigManagerAccessor;
-import com.google.code.pathlet.core.Path;
-import com.google.code.pathlet.core.PathPattern;
-import com.google.code.pathlet.core.PathletConstants;
-import com.google.code.pathlet.core.PathletContainer;
-import com.google.code.pathlet.core.ResourceFactory;
-import com.google.code.pathlet.core.impl.BeanPathConverter;
-import com.google.code.pathlet.core.impl.BeanResourceFactory;
-import com.google.code.pathlet.core.impl.ClassNamePathConverter;
-import com.google.code.pathlet.core.impl.DefaultPathletContainer;
-import com.google.code.pathlet.exampleservice.common.DataInitService;
-import com.google.code.pathlet.exampleservice.menu.CategoryService;
-import com.google.code.pathlet.exampleservice.user.User;
-import com.google.code.pathlet.exampleservice.user.UserService;
+import com.google.code.pathlet.core.instanceroot.TestWeaveBean;
+import com.google.code.pathlet.core.instanceroot.common.DataInitService;
+import com.google.code.pathlet.core.instanceroot.menu.CategoryService;
+import com.google.code.pathlet.core.instanceroot.user.User;
+import com.google.code.pathlet.core.instanceroot.user.UserService;
 import com.google.code.pathlet.util.ClassPathResource;
 import com.google.code.pathlet.util.ClassUtils;
-import com.google.code.pathlet.util.IOUtils;
-
-
+import com.google.code.pathlet.util.StaticContainerHelper;
 
 public class JsonConfigResourceTest 
     extends TestCase
@@ -43,30 +22,24 @@ public class JsonConfigResourceTest
 	
 	private final static String REQUEST_SCOPE = "request";
 	
-	private PathletContainer container;
-	
-	@Override
-	protected void setUp() throws Exception {
-		ClassLoader cl = this.getClass().getClassLoader();
+	public JsonConfigResourceTest() throws Exception  {
 		String packagePath = ClassUtils.getPackageName(this.getClass()).replace('.', '/');
 		
 		File[] configFiles ={ 
-				(new ClassPathResource(packagePath + "/config/testConfig1.json", cl)).getFile(), 
-				(new ClassPathResource(packagePath + "/config/testConfig2.json", cl)).getFile() };
+				(new ClassPathResource(packagePath + "/instanceroot/testConfig.json")).getFile()};
 		
-		File[] propertyFiles = {(new ClassPathResource(packagePath + "/config/testConfig.properties", cl)).getFile()};
+		String[] scopes = {PathletConstants.SETTING_SCOPE, PathletConstants.CONTAINER_SCOPE, REQUEST_SCOPE};
+		//ConfigManagerAccessor configManagerAcc = new ConfigManagerAccessor(configFiles, propertyFiles, "UTF-8");
+		//ConfigManager configManager = configManagerAcc.loadConfigManager();
+		//container = new DefaultPathletContainer(configManager, new String[]{PathletConstants.SETTING_SCOPE, PathletConstants.CONTAINER_SCOPE, REQUEST_SCOPE});
 		
-		ConfigManagerAccessor configManagerAcc = new ConfigManagerAccessor(configFiles, propertyFiles, "UTF-8");
-		
-		ConfigManager configManager = configManagerAcc.loadConfigManager();
-		
-		container = new DefaultPathletContainer(configManager, new String[]{PathletConstants.SETTING_SCOPE, PathletConstants.CONTAINER_SCOPE, REQUEST_SCOPE});
+		StaticContainerHelper.getContainer("test", configFiles, null, "UTF-8", scopes);
 	}
 
 
-
 	@Test
-	public void testRetrieveInstance() throws Exception {
+	public void test() throws Exception {
+		PathletContainer container = StaticContainerHelper.getContainer("test");
 		
 		//test the configuration using the defaultScope.
 		TestWeaveBean appBeanWithDefaultScope = (TestWeaveBean)container.getInstance("/TestWeaveBean2");
@@ -158,45 +131,28 @@ public class JsonConfigResourceTest
 		assertEquals(aliasBean2, appBeanWithDefaultScope);
 		
 		
-		//Flush all bean in the InstanceSpace
-		//When destroying, the destoryMethod will be invoked from the InstanceSpace.
-		container.flush(null);
-		assertTrue(appBean.isDestroied());
-		assertTrue(reqBean.isDestroied());
-	}
-	
-	public void testAOP() throws Exception {
+		/////////////////////////////////////////ion test.
 		//////////////////////////////////////////////
-		// JSon AOP configuration and implementation test.
-		//////////////////////////////////////////////
+		//PathletContainer container = StaticContainerHelper.getContainer("test");
 		
 		DataInitService dataInitService = (DataInitService)container.getInstance("/common/DataInitService");
 		
 		//Initialize the database data
 		dataInitService.saveInit();
-		
-		UserService userdService = (UserService)container.getInstance("/user/UserService");
-		
-		User user = userdService.getUser("ch"); //will append in interceptors, after intercepted the real parameter is "charlie"
-		
+		UserService userService = (UserService)container.getInstance("/user/UserService");
+		User user = userService.getUser("ch"); //will append in interceptors, after intercepted the real parameter was changed to "charlie"
 		assertNotNull(user);
 
 		//The original method will return "Charlie Zhang", 
 		// in this test, the string " got a inspiration!" will append from the interceptors operations.
 		assertEquals("Charlie Zhang got a inspiration!", user.getName());
-	}
-	
-	
-
-	private InputStream loadClassRelativeFile(Class clazz, String filename) throws Exception { 
-		String classPath = clazz.getCanonicalName().replace(".", "/") + ".class";
-		URL url = clazz.getClassLoader().getResource(classPath);
-		File thisClassPath = new File(url.toURI());
-		File currentFile = new File(thisClassPath.getParent(), filename);
 		
-		return new FileInputStream(currentFile);
+		
+		//Flush all bean in the InstanceSpace
+		//When destroying, the destoryMethod will be invoked from the InstanceSpace.
+		container.flush(null);
+		assertTrue(appBean.isDestroied());
+		assertTrue(reqBean.isDestroied());
+		
 	}
-	
-	
-    
 }

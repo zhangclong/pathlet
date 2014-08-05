@@ -9,8 +9,8 @@ import javax.sql.DataSource;
 import org.springframework.util.ClassUtils;
 
 import com.google.code.pathlet.core.PathletContainer;
-import com.google.code.pathlet.test.ContainerTestHelper;
 import com.google.code.pathlet.util.ClassPathResource;
+import com.google.code.pathlet.util.StaticContainerHelper;
 import com.google.code.pathlet.util.ScriptRunner;
 
 
@@ -25,7 +25,7 @@ public class DatabaseScriptHelper
 		
 		File[] configFiles = { (new ClassPathResource("/app-config.json")).getFile() };
 		File[] propertyFiles = { (new ClassPathResource("/dataSource.properties")).getFile() };
-		PathletContainer container = ContainerTestHelper.getContainer("test", configFiles, propertyFiles, "UTF-8");
+		PathletContainer container = StaticContainerHelper.getContainer("test", configFiles, propertyFiles, "UTF-8");
 
 		DataSource dataSource = (DataSource)container.getInstance("/dataSource");
 		

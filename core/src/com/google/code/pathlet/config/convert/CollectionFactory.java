@@ -1,22 +1,6 @@
 package com.google.code.pathlet.config.convert;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.*;
 
 /**
  * Factory for collections, being aware of Java 5 and Java 6 collections.
@@ -26,9 +10,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * Java version, while nevertheless using the best collection implementation
  * that is available at runtime.
  *
- * @author Juergen Hoeller
- * @author Arjen Poutsma
- * @since 1.1.1
  */
 public abstract class CollectionFactory {
 

@@ -19,6 +19,16 @@ import com.google.code.pathlet.core.Path;
 import com.google.code.pathlet.util.ClassPathResource;
 import com.google.code.pathlet.util.ClassUtils;
 
+/**
+ * <p>Test the {@link com.google.code.pathlet.core.ConfigManager} implementations. The target is 
+ * to validate the loading and parsing for the configuration files.
+ * By now, Pathlet only supports the JSON type configuration file, which could be parameterized by properties files!</p> 
+ * 
+ * 
+ * @author Charlie Zhang
+ * @see com.google.code.pathlet.core.ConfigManagerAccessor
+ * 
+ */
 public class ConfigManagerTest {
 
 	@Test
@@ -81,7 +91,6 @@ public class ConfigManagerTest {
 		
 		assertEquals(pointcutCfg.getMethods().length, 1);
 		assertEquals(pointcutCfg.getMethods()[0], "getUser");
-		
 		
 		
 		pointcutCfg = configManager.getPointcut("pointCutCategoryService");

@@ -18,11 +18,6 @@ import java.util.Map;
  * a Method or Constructor plus a parameter index and a nested type index for
  * a declared generic type. Useful as a specification object to pass along.
  *
- * @author Juergen Hoeller
- * @author Rob Harrop
- * @author Andy Clement
- * @since 2.0
- * @see GenericCollectionTypeResolver
  */
 public class MethodParameter {
 

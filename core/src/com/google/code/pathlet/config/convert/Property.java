@@ -10,10 +10,6 @@ import com.google.code.pathlet.config.ConfigException;
 import com.google.code.pathlet.util.ReflectionUtils;
 import com.google.code.pathlet.util.StringUtils;
 
-
-//import org.springframework.util.ReflectionUtils;
-//import org.springframework.util.StringUtils;
-
 /**
  * A description of a JavaBeans Property facility. .
  *

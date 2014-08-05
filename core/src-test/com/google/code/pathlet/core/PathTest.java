@@ -3,7 +3,15 @@ package com.google.code.pathlet.core;
 import junit.framework.TestCase;
 
 
-
+/**
+ * 
+ * Test the <code>Path</code> utility class. 
+ * 
+ * 
+ * 
+ * @author Charlie Zhang
+ *
+ */
 public class PathTest 
     extends TestCase
 {
@@ -21,6 +29,7 @@ public class PathTest
 		assertEquals("do", path.getSuffix());
 		assertEquals("login.do", path.getName());
 		assertEquals("login", path.getNameWithoutSuffix());
+		assertEquals("/eshop/party/web/AuthenticationAction/", path.getParent().toString());
     }
     
     

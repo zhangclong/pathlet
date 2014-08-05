@@ -8,13 +8,13 @@ import org.junit.Test;
 import com.google.code.newpath.jdbc.example.vo.UserVO;
 import com.google.code.pathlet.core.PathletContainer;
 import com.google.code.pathlet.jdbc.instance.transaction.AnnoUserService;
-import com.google.code.pathlet.test.ContainerTestHelper;
 import com.google.code.pathlet.util.ClassPathResource;
+import com.google.code.pathlet.util.StaticContainerHelper;
 
 public class JdbcTransactionalTest {
 	
 	protected PathletContainer getContainer() throws IOException {
-		PathletContainer container = ContainerTestHelper.getContainer("testapp");
+		PathletContainer container = StaticContainerHelper.getContainer("testapp");
 		if(container == null) {
 			File[] configFiles ={
 					(new ClassPathResource("/com/google/code/pathlet/jdbc/jdbc-test-app2.json")).getFile()
@@ -23,7 +23,7 @@ public class JdbcTransactionalTest {
 			//		(new ClassPathResource("/dataSource.properties")).getFile(),
 			//		(new ClassPathResource("/dataSourceDw.properties")).getFile()
 			//		};
-			return ContainerTestHelper.getContainer("testapp", configFiles, null, "UTF-8");
+			return StaticContainerHelper.getContainer("testapp", configFiles, null, "UTF-8");
 		} else {
 			return container;
 		}

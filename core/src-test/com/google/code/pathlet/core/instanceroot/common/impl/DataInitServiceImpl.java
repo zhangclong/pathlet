@@ -1,11 +1,11 @@
-package com.google.code.pathlet.exampleservice.common.impl;
+package com.google.code.pathlet.core.instanceroot.common.impl;
 
 import com.google.code.pathlet.config.anno.InstanceIn;
-import com.google.code.pathlet.exampleservice.common.DataInitService;
-import com.google.code.pathlet.exampleservice.menu.Category;
-import com.google.code.pathlet.exampleservice.menu.CategoryService;
-import com.google.code.pathlet.exampleservice.user.User;
-import com.google.code.pathlet.exampleservice.user.UserService;
+import com.google.code.pathlet.core.instanceroot.common.DataInitService;
+import com.google.code.pathlet.core.instanceroot.menu.Category;
+import com.google.code.pathlet.core.instanceroot.menu.CategoryService;
+import com.google.code.pathlet.core.instanceroot.user.User;
+import com.google.code.pathlet.core.instanceroot.user.UserService;
 
 public class DataInitServiceImpl implements DataInitService {
 

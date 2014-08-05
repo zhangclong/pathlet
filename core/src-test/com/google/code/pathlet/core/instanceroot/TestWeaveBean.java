@@ -1,12 +1,14 @@
-package com.google.code.pathlet.config;
+package com.google.code.pathlet.core.instanceroot;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.google.code.pathlet.core.InstanceSpace;
 import com.google.code.pathlet.core.Path;
 import com.google.code.pathlet.core.PathPattern;
 import com.google.code.pathlet.core.PathletContainer;
-import com.google.code.pathlet.exampleservice.user.UserService;
+import com.google.code.pathlet.core.instanceroot.user.UserService;
 
 public class TestWeaveBean {
 	
