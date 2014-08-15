@@ -5,7 +5,7 @@
 	<artifactId>pathlet-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Pathlet Framework - Parent</name>
-	<version>2.0-SNAPSHOT</version>
+	<version>2.0</version>
 	<description>Pathlet Framework - Parent</description>
 	<modules>
 		<module>core</module>
