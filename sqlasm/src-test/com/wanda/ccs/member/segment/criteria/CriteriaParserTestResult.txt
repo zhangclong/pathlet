@@ -1,0 +1,20 @@
+ select count(distinct member.MEMBER_KEY) 
+ from 
+CCS_NRPT2.T_D_CON_MEMBER member,
+CCS_NRPT2.T_F_CON_SALE consale,
+CCS_NRPT2.T_D_CON_DATE consale_date,
+CCS_NRPT2.T_D_CON_HOUR consale_hour,
+CCS_NRPT2.T_D_CON_CINEMA consale_cinema 
+ where 
+member.MEMBER_KEY=consale.MEMBER_KEY and 
+consale.BOOK_DATE_KEY between to_date('2013-07-11', 'YYYY-MM-DD') and to_date('2013-07-11', 'YYYY-MM-DD') and 
+consale_date.DATE_KEY=consale.BOOK_DATE_KEY and 
+consale_date.HOLIDAY_ID is not null and 
+consale_hour.HOUR_KEY=consale.BOOK_HOUR_KEY and 
+consale_hour.TIME_DIVIDING_ID in ('AMI','AMII') and 
+consale.BOOK_HOUR_KEY between '1' and '23' and 
+consale_cinema.CINEMA_KEY = consale.CINEMA_KEY and 
+consale_cinema.INNER_CODE in ('100','112','311','340','370','371','808','827','992','993','999') 
+ having sum(consale.BK_SALE_AMOUNT) - sum(consale.RE_SALE_AMOUNT) between 0.0 and 100.0 and 
+count(distinct consale.Bk_CS_ORDER_CODE) between 0 and 20 
+ group by member.MEMBER_KEY 

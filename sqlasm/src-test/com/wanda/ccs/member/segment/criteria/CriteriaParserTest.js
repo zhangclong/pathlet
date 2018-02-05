@@ -1,0 +1,39 @@
+[
+{"inputId":"conSaleDate","label":"卖品交易日期","operator":"between","value":["2013-07-11 ","2013-07-11 "]},
+{"inputId":"conSaleHoliday","label":"节假日卖品交易","operator":"eq","value":"1"},
+{"inputId":"conSaleHourPeriod","label":"卖品交易时段","operator":"in","value":["AMI","AMII"]},
+{"inputId":"conSaleHour","label":"卖品交易小时","operator":"between","value":["1","23"]},
+{"inputId":"conSaleCinema","label":"卖品交易影城","operator":"in",
+	 "value":{"selTarget":true,
+		 "criteria":[
+		             {"inputId":"shortName","label":"影城简称","operator":"eq","value":"","valueLabel":""},
+		             {"inputId":"area","label":"区域","operator":"in","value":["01","02"],"valueLabel":["北京","上海"]},
+		             {"inputId":"cityLevel","label":"城市级别","operator":"in","value":[],"valueLabel":[]},
+		             {"inputId":"cityName","label":"城市名称","operator":"eq","value":"","valueLabel":""}],
+		  "selections":{
+			  "value":["100","112","311","340","370","371","808","827","992","993","999"],
+			  "valueLabel":["太仓","北京CBD","北京天通苑","上海周浦","北京望京","上海江桥","上海宝山","测试影城1","上海五角场","廊坊","北京石景山"]
+		  }
+	 }
+},
+{"inputId":"conSaleAmount","label":"卖品消费金额","operator":"between","value":["0","100"]},
+{"inputId":"conSaleConsumeTime","label":"卖品消费次数","operator":"between","value":["0","20"]},
+{
+	"inputId":"conSaleItem",
+	"label":"卖品品项",
+	"operator":"in",
+	"value":{
+		"selTarget":false,
+		"criteria":[
+	     {"inputId":"itemCode","label":"编码","operator":"eq","value":"","valueLabel":""},
+	     {"inputId":"itemName","label":"名称","operator":"like","value":"","valueLabel":""},
+	     {"inputId":"conCategoryId","label":"品类","operator":"in","value":["26","27","28","29","30","31","32","33","34","35","36","37","59"],"valueLabel":"<span style=\"font-weight:bold;\">已选:</span>现调碳酸; 现调果汁; 现调茶饮; 现调冰沙; 其他现调饮料; 瓶装饮用水; 瓶装碳酸; 瓶装果汁; 瓶装茶饮; 瓶装咖啡; 瓶装功能饮料; 其他瓶装饮料; 瓶装乳制品"},
+	     {"inputId":"unit","label":"计量单位","operator":"in","value":[],"valueLabel":[]}
+	     ],
+	     "selections":{
+	    	 "value":[],
+	    	 "valueLabel":[]
+	     }
+	}
+},
+{"inputId":"conSaleCategory","label":"卖品品类","operator":"in"}]

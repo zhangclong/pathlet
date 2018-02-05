@@ -1,24 +1,14 @@
 package com.google.code.pathlet.jndi;
 
-import java.util.List;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.google.code.pathlet.config.ResourceConfig;
-import com.google.code.pathlet.core.InstanceSpace;
 import com.google.code.pathlet.core.Path;
-import com.google.code.pathlet.core.PathClassLoader;
-import com.google.code.pathlet.core.PathPattern;
-import com.google.code.pathlet.core.PathletContainer;
 import com.google.code.pathlet.core.Resource;
-import com.google.code.pathlet.core.ResourceFactory;
-import com.google.code.pathlet.core.ResourceInstanceEvent;
 import com.google.code.pathlet.core.exception.ResourceAccessException;
 import com.google.code.pathlet.core.exception.ResourceException;
-import com.google.code.pathlet.core.exception.ResourceInstanceException;
-import com.google.code.pathlet.core.impl.BaseResource;
 import com.google.code.pathlet.core.impl.BaseResourceFactory;
 
 public class JndiResourceFactory extends BaseResourceFactory<Resource> {

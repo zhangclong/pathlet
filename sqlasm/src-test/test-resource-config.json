@@ -1,0 +1,43 @@
+{
+beans: 
+[
+	{
+		path  : "/dataSource",
+		class : "com.mchange.v2.c3p0.ComboPooledDataSource",
+		scope : "container",
+		//destroyMethod : "close",
+		properties: {
+			driverClass               : "oracle.jdbc.driver.OracleDriver",
+			jdbcUrl                   : "jdbc:oracle:thin:@10.199.201.39:1521:orapub",
+			user                      : "ccs_mbr_stag",
+			password                  : "ccs_mbr_stag",
+			initialPoolSize           : 3,
+			minPoolSize               : 3,
+			maxPoolSize               : 20,
+			acquireRetryAttempts      : 3,
+			idleConnectionTestPeriod  : 60,
+			acquireIncrement          : 2,
+			maxStatements             : 0
+		}
+	},
+	{
+		path  : "/dataSourceDw",
+		class : "com.mchange.v2.c3p0.ComboPooledDataSource",
+		scope : "container",
+		//destroyMethod : "close",
+		properties: {
+			driverClass               : "oracle.jdbc.driver.OracleDriver",
+			jdbcUrl                   : "jdbc:oracle:thin:@10.199.90.53:1521:pldw",
+			user                      : "report_read",
+			password                  : "UUhj78Ip",
+			initialPoolSize           : 3,
+			minPoolSize               : 3,
+			maxPoolSize               : 20,
+			acquireRetryAttempts      : 3,
+			idleConnectionTestPeriod  : 60,
+			acquireIncrement          : 2,
+			maxStatements             : 0
+		}
+	}
+]
+}
